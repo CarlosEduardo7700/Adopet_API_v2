@@ -19,6 +19,7 @@ class CalculadoraProbabilidadeAdocaoTest {
     void probabilidadeAltaCenario01() {
         // 4 anos e 4kg -> Baixa
 
+        // 1º passo - ARRANGE
         Abrigo abrigo = new Abrigo(new CadastroAbrigoDto(
                 "Abrigo feliz",
                 "94999999999",
@@ -34,8 +35,11 @@ class CalculadoraProbabilidadeAdocaoTest {
         ), abrigo);
 
         CalculadoraProbabilidadeAdocao calculadora = new CalculadoraProbabilidadeAdocao();
+
+        // 2º passo - ACT
         ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
 
+        // 3º passo - ASSERT
         Assertions.assertEquals(ProbabilidadeAdocao.ALTA, probabilidade);
 
     }
