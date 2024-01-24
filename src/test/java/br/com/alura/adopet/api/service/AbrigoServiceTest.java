@@ -14,8 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
 class AbrigoServiceTest {
 
@@ -53,7 +51,7 @@ class AbrigoServiceTest {
         BDDMockito.given(abrigoRepository.existsByNomeOrTelefoneOrEmail(dto.nome(), dto.telefone(), dto.email())).willReturn(true);
 
         // ASSERT + ACT
-        Assertions.assertThrows(ValidacaoException.class, () -> abrigoService.cadatrar(dto));
+        Assertions.assertThrows(ValidacaoException.class, () -> abrigoService.cadastrar(dto));
     }
 
     @Test
@@ -63,7 +61,7 @@ class AbrigoServiceTest {
         BDDMockito.given(abrigoRepository.existsByNomeOrTelefoneOrEmail(dto.nome(), dto.telefone(), dto.email())).willReturn(false);
 
         // ACT
-        abrigoService.cadatrar(dto);
+        abrigoService.cadastrar(dto);
 
         // ASSERT
         BDDMockito.then(abrigoRepository).should().save(new Abrigo(dto));
