@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -26,8 +27,8 @@ class AdocaoControllerTest {
     private AdocaoService service;
 
     @Test
-    @DisplayName("Deveria retornar o código HTTP 400")
-    void codigo400Cenario01() throws Exception {
+    @DisplayName("Deveria retornar o código HTTP 400 ao fazer uma solicitação")
+    void solicitarCodigo400Cenario01() throws Exception {
         // ARRANGE
         String body = "{}";
 
@@ -44,8 +45,8 @@ class AdocaoControllerTest {
     }
 
     @Test
-    @DisplayName("Deveria retornar o código HTTP 200")
-    void codigo200Cenario02() throws Exception {
+    @DisplayName("Deveria retornar o código HTTP 200 ao fazer uma solicitação")
+    void solicitarCodigo200Cenario02() throws Exception {
         // ARRANGE
         String body = """
                 {
@@ -65,6 +66,49 @@ class AdocaoControllerTest {
         // ASSERT
         Assertions.assertEquals(200, response.getStatus());
 
+    }
+
+    @Test
+    @DisplayName("Deveria retornar o código HTTP 200 ao aprovar uma adoção")
+    void aprovarAdocaoCenario03() throws Exception {
+        // ARRANGE
+        String body = """
+                {
+                        "idAdocao": 10
+                }
+                """;
+
+        // ACT
+        MockHttpServletResponse response = mvc.perform(
+                put("/adocoes/aprovar")
+                        .content(body)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andReturn().getResponse();
+
+        // ASSERT
+        Assertions.assertEquals(200, response.getStatus());
+    }
+
+    @Test
+    @DisplayName("Deveria retornar o código HTTP 200 ao reprovar uma adoção")
+    void reprovarAdocaoCenario04() throws Exception {
+        // ARRANGE
+        String body = """
+                {
+                        "idAdocao": 10,
+                        "justificativa": "Justificativa para a reprovação"
+                }
+                """;
+
+        // ACT
+        MockHttpServletResponse response = mvc.perform(
+                put("/adocoes/reprovar")
+                        .content(body)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andReturn().getResponse();
+
+        // ASSERT
+        Assertions.assertEquals(200, response.getStatus());
     }
 
 }
