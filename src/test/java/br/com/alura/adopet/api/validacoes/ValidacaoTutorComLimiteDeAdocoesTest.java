@@ -28,17 +28,17 @@ class ValidacaoTutorComLimiteDeAdocoesTest {
     private SolicitacaoAdocaoDto dto;
 
     @Test
-    @DisplayName("Deveria permitir a adoção do pet")
+    @DisplayName("Deveria permitir a adoção do pet se o tutor tiver menos de 5 adoções")
     void permitirAdocaoCenario01() {
         // ARRANGE
-        BDDMockito.given(adocaoRepository.countByTutorIdAndStatus(dto.idTutor(), StatusAdocao.APROVADO)).willReturn(3);
+        BDDMockito.given(adocaoRepository.countByTutorIdAndStatus(dto.idTutor(), StatusAdocao.APROVADO)).willReturn(4);
 
         // ASSERT + ACT
         Assertions.assertDoesNotThrow(() -> validacao.validar(dto));
     }
 
     @Test
-    @DisplayName("Não Deveria permitir a adoção do pet")
+    @DisplayName("Não Deveria permitir a adoção do pet se o tutor já tiver 5 adoções")
     void naoPermitirAdocaoCenario02() {
         // ARRANGE
         BDDMockito.given(adocaoRepository.countByTutorIdAndStatus(dto.idTutor(), StatusAdocao.APROVADO)).willReturn(5);

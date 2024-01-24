@@ -28,7 +28,7 @@ class ValidacaoPetComAdocaoEmAndamentoTest {
     private SolicitacaoAdocaoDto dto;
 
     @Test
-    @DisplayName("Deveria permitir a adoção do pet")
+    @DisplayName("Deveria permitir a adoção do pet se ele não tiver uma adoção em andamento")
     void permitirAdocaoCenario01 () {
         // ARRANGE
         BDDMockito.given(adocaoRepository
@@ -39,7 +39,7 @@ class ValidacaoPetComAdocaoEmAndamentoTest {
     }
 
     @Test
-    @DisplayName("Não deveria permitir a adoção do pet")
+    @DisplayName("Não deveria permitir a adoção do pet se ele já tiver uma adoção em andamento")
     void naoPermitirAdocaoCenario02 () {
         // ARRANGE
         BDDMockito.given(adocaoRepository

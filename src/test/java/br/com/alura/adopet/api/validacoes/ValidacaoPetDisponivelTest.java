@@ -30,7 +30,7 @@ class ValidacaoPetDisponivelTest {
     private SolicitacaoAdocaoDto dto;
 
     @Test
-    @DisplayName("Deveria permitir a adoção do pet")
+    @DisplayName("Deveria permitir a adoção do pet se ele não já tiver sido adotado")
     void permitirAdocaoCenario01() {
 
         // ARRANGE
@@ -42,7 +42,7 @@ class ValidacaoPetDisponivelTest {
     }
 
     @Test
-    @DisplayName("Não deveria permitir a adoção do pet")
+    @DisplayName("Não deveria permitir a adoção do pet se ele já tiver sido adotado")
     void naoPermitirAdocaoCenario02() {
 
         // ARRANGE
